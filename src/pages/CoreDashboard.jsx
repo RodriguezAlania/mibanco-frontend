@@ -44,7 +44,7 @@ export default function CoreDashboard() {
     setCargando(true)
     setError('')
     try {
-      const res = await axios.get('http://localhost:3000/api/mora/cartera', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/mora/cartera`, {
         headers: { Authorization: `Bearer ${t}` }
       })
       setData(res.data)
@@ -60,7 +60,7 @@ export default function CoreDashboard() {
     setMsgGestion(null)
     setFormGestion({ pktipogestion: '', resultado: '', compromisopago: '', montocomprometido: '' })
     try {
-      const res = await axios.get(`http://localhost:3000/api/mora/gestiones/${cuenta.pkcuentacredito}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/mora/gestiones/${cuenta.pkcuentacredito}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setHistorial(res.data)
@@ -73,7 +73,7 @@ export default function CoreDashboard() {
     setEnviandoGestion(true)
     setMsgGestion(null)
     try {
-      const res = await axios.post('http://localhost:3000/api/mora/gestion', {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/mora/gestion`, {
         pkcuentacredito: modalCuenta.pkcuentacredito,
         pktipogestion: Number(formGestion.pktipogestion),
         diasatrasoalmomento: modalCuenta.diasatrasocredito,
@@ -93,7 +93,7 @@ export default function CoreDashboard() {
 
   async function transicionar(accion) {
     try {
-      const res = await axios.patch(`http://localhost:3000/api/mora/transicion/${modalCuenta.pkcuentacredito}`, {
+      const res = await axios.patch(`${import.meta.env.VITE_API_URL}/api/mora/transicion/${modalCuenta.pkcuentacredito}`, {
         accion
       }, { headers: { Authorization: `Bearer ${token}` } })
 
