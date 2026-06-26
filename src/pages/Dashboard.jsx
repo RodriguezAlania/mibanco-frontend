@@ -46,7 +46,7 @@ function Dashboard() {
     // Cargar cuentas del usuario
     async function cargarCuentas() {
       try {
-        const res = await axios.get('http://localhost:3000/api/cuentas/mias', {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/cuentas/mias`, {
           headers: { Authorization: `Bearer ${sesion?.token}` }
         })
         setCuentas(res.data)
@@ -73,7 +73,7 @@ function Dashboard() {
     setMensajeCredito(null)
     setEnviandoCredito(true)
     try {
-      const res = await axios.post('http://localhost:3000/api/creditos/solicitar', {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/creditos/solicitar`, {
         monto:  Number(formCredito.monto),
         moneda: formCredito.moneda,
         plazo:  Number(formCredito.plazo),
@@ -95,7 +95,7 @@ function Dashboard() {
       return
     }
     try {
-      const res = await axios.get(`http://localhost:3000/api/creditos/cronograma/${id}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/creditos/cronograma/${id}`, {
         headers: { Authorization: `Bearer ${sesion?.token}` }
       })
       setCronogramaActivo(res.data)
@@ -106,7 +106,7 @@ function Dashboard() {
 
   async function cargarSolicitudes() {
     try {
-      const res = await axios.get('http://localhost:3000/api/creditos/mis-solicitudes', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/creditos/mis-solicitudes`, {
         headers: { Authorization: `Bearer ${sesion?.token}` }
       })
       setSolicitudes(res.data)
