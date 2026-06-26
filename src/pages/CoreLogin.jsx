@@ -14,7 +14,7 @@ export default function CoreLogin() {
     setError('')
     setCargando(true)
     try {
-      const res = await axios.post('http://localhost:3000/api/core/login', { username, password })
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/core/login`, { username, password })
       localStorage.setItem('core_token', res.data.token)
       localStorage.setItem('core_usuario', JSON.stringify(res.data.usuario))
       navigate('/core-dashboard')
