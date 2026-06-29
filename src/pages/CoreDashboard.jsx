@@ -115,18 +115,98 @@ export default function CoreDashboard() {
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', background: '#f4f6f5', minHeight: '100vh' }}>
       {/* Header */}
-      <div style={{ background: '#0d3b24', color: '#fff', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <strong>🏦 Core Bancario</strong> — Módulo de Mora
-          {' '}<Link to="/core-solicitudes" style={{ color: '#cfe8d8', fontSize: '0.85rem', textDecoration: 'none', marginLeft: '1rem' }}>
-            Ver Solicitudes de Crédito →
-          </Link>
+<div style={{
+  background: 'linear-gradient(135deg, #0d3b24 0%, #145c36 60%, #0d3b24 100%)',
+  borderBottom: '3px solid #f5a623',
+  boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+  color: '#fff',
+  padding: '1rem 2rem',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  position: 'relative'
+}}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '1.4rem' }}>
+    {/* Marca */}
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+      <div style={{
+        width: '38px', height: '38px',
+        background: 'linear-gradient(145deg, #f5a623, #d88c0f)',
+        borderRadius: '10px',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: '1.25rem',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.25)'
+      }}>
+        🏦
+      </div>
+      <div>
+        <div style={{ fontWeight: 800, fontSize: '1.05rem', letterSpacing: '0.01em', lineHeight: 1 }}>
+          Core Bancario
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <span>{usuario?.nombre} · {usuario?.cargo}</span>
-          <button onClick={salir} style={{ background: '#e53935', color: '#fff', border: 'none', padding: '0.4rem 1rem', borderRadius: '6px', cursor: 'pointer' }}>Salir</button>
+        <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: '2px' }}>
+          MiBanco · Plataforma Interna
         </div>
       </div>
+    </div>
+
+    {/* Separador */}
+    <div style={{ width: '1px', height: '28px', background: 'rgba(255,255,255,0.2)' }} />
+
+    {/* Contexto de sección */}
+    <div style={{
+      fontSize: '0.92rem',
+      fontWeight: 600,
+      color: '#ffd98a',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.4rem'
+    }}>
+      Solicitudes de Crédito
+    </div>
+
+    {/* Navegación */}
+    <Link to="/core-dashboard" style={{
+      color: 'rgba(255,255,255,0.75)',
+      fontSize: '0.82rem',
+      textDecoration: 'none',
+      padding: '0.4rem 0.85rem',
+      borderRadius: '20px',
+      border: '1px solid rgba(255,255,255,0.18)',
+      transition: 'all 0.2s ease',
+      whiteSpace: 'nowrap'
+    }}
+    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff' }}
+    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.75)' }}
+    >
+      ← Módulo de Mora
+    </Link>
+  </div>
+
+  <div style={{ display: 'flex', alignItems: 'center', gap: '1.1rem' }}>
+    <div style={{ textAlign: 'right' }}>
+      <div style={{ fontWeight: 700, fontSize: '0.88rem' }}>{usuario?.nombre}</div>
+      <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.55)' }}>{usuario?.cargo}</div>
+    </div>
+    <button
+      onClick={salir}
+      style={{
+        background: 'rgba(229,57,53,0.15)',
+        color: '#ff8a80',
+        border: '1px solid rgba(229,57,53,0.4)',
+        padding: '0.45rem 1.1rem',
+        borderRadius: '8px',
+        cursor: 'pointer',
+        fontWeight: 700,
+        fontSize: '0.82rem',
+        transition: 'all 0.2s ease'
+      }}
+      onMouseEnter={e => { e.currentTarget.style.background = '#e53935'; e.currentTarget.style.color = '#fff' }}
+      onMouseLeave={e => { e.currentTarget.style.background = 'rgba(229,57,53,0.15)'; e.currentTarget.style.color = '#ff8a80' }}
+    >
+      Salir
+    </button>
+  </div>
+</div>
 
       <div style={{ padding: '2rem' }}>
         {error && <div style={{ background: '#ffebee', color: '#e53935', padding: '1rem', borderRadius: '8px', marginBottom: '1rem' }}>⚠️ {error}</div>}
