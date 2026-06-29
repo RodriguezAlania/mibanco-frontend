@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 
 const BANDAS = ['Preventiva', 'Temprana', 'Tardía', 'Judicial', 'Castigo']
@@ -118,6 +118,9 @@ export default function CoreDashboard() {
       <div style={{ background: '#0d3b24', color: '#fff', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <strong>🏦 Core Bancario</strong> — Módulo de Mora
+          {' '}<Link to="/core-solicitudes" style={{ color: '#cfe8d8', fontSize: '0.85rem', textDecoration: 'none', marginLeft: '1rem' }}>
+            Ver Solicitudes de Crédito →
+          </Link>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <span>{usuario?.nombre} · {usuario?.cargo}</span>

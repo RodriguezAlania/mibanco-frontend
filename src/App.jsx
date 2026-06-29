@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import BancaInternet from './pages/BancaInternet'
 import CoreLogin from './pages/CoreLogin'
 import CoreDashboard from './pages/CoreDashboard'
+import CoreSolicitudes from './pages/CoreSolicitudes'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       } />
       <Route path="/core-login" element={<CoreLogin />} />
       <Route path="/core-dashboard" element={<CoreDashboard />} />
+      <Route path="/core-solicitudes" element={<CoreSolicitudes />} />
     </Routes>
   )
 }
