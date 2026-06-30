@@ -5,11 +5,19 @@ import axios from 'axios'
 const BANDAS = ['Preventiva', 'Temprana', 'Tardía', 'Judicial', 'Castigo']
 
 const BANDA_COLOR = {
-  Preventiva: '#43a047',
-  Temprana:   '#fbc02d',
-  'Tardía':   '#fb8c00',
-  Judicial:   '#e53935',
-  Castigo:    '#6d4c41',
+  Preventiva: '#4ade80',
+  Temprana:   '#fbbf24',
+  'Tardía':   '#fb923c',
+  Judicial:   '#f87171',
+  Castigo:    '#9ca3af',
+}
+
+const BANDA_GLOW = {
+  Preventiva: 'rgba(74,222,128,0.25)',
+  Temprana:   'rgba(251,191,36,0.25)',
+  'Tardía':   'rgba(251,146,60,0.25)',
+  Judicial:   'rgba(248,113,113,0.25)',
+  Castigo:    'rgba(156,163,175,0.25)',
 }
 
 export default function CoreDashboard() {
@@ -110,169 +118,198 @@ export default function CoreDashboard() {
     navigate('/core-login')
   }
 
-  if (cargando) return <div style={{ padding: '3rem', textAlign: 'center' }}>Cargando cartera de mora...</div>
+  if (cargando) {
+    return (
+      <div style={{ background: '#0b0e0d', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontFamily: "'Inter', system-ui, sans-serif" }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ width: '36px', height: '36px', border: '3px solid rgba(245,166,35,0.2)', borderTopColor: '#f5a623', borderRadius: '50%', margin: '0 auto 1rem', animation: 'spin 0.8s linear infinite' }} />
+          <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem' }}>Cargando cartera de mora...</div>
+        </div>
+        <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
+      </div>
+    )
+  }
 
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', background: '#f4f6f5', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Inter', system-ui, sans-serif", background: '#0b0e0d', minHeight: '100vh', color: '#fff' }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+        ::selection { background: #f5a623; color: #0b0e0d; }
+      `}</style>
+
       {/* Header */}
-<div style={{
-  background: 'linear-gradient(135deg, #0d3b24 0%, #145c36 60%, #0d3b24 100%)',
-  borderBottom: '3px solid #f5a623',
-  boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-  color: '#fff',
-  padding: '1rem 2rem',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  position: 'relative'
-}}>
-  <div style={{ display: 'flex', alignItems: 'center', gap: '1.4rem' }}>
-    {/* Marca */}
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
       <div style={{
-        width: '38px', height: '38px',
-        background: 'linear-gradient(145deg, #f5a623, #d88c0f)',
-        borderRadius: '10px',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: '1.25rem',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.25)'
+        background: '#0f1512',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        padding: '1.1rem 2rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
       }}>
-        🏦
-      </div>
-      <div>
-        <div style={{ fontWeight: 800, fontSize: '1.05rem', letterSpacing: '0.01em', lineHeight: 1 }}>
-          Core Bancario
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.4rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+            <div style={{
+              width: '40px', height: '40px',
+              background: 'linear-gradient(150deg, #f5c863, #f5a623 45%, #c97f0f)',
+              borderRadius: '11px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '1.3rem',
+              boxShadow: '0 0 0 1px rgba(245,166,35,0.3), 0 4px 14px rgba(245,166,35,0.35)'
+            }}>
+              🏦
+            </div>
+            <div>
+              <div style={{ fontWeight: 800, fontSize: '1.05rem', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
+                Core Bancario
+              </div>
+              <div style={{ fontSize: '0.66rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '2px' }}>
+                Módulo de Mora
+              </div>
+            </div>
+          </div>
+
+          <div style={{ width: '1px', height: '26px', background: 'rgba(255,255,255,0.1)' }} />
+
+          <Link to="/core-solicitudes" style={{
+            color: '#f5a623',
+            fontSize: '0.84rem',
+            fontWeight: 600,
+            textDecoration: 'none',
+            padding: '0.45rem 1rem',
+            borderRadius: '8px',
+            background: 'rgba(245,166,35,0.1)',
+            border: '1px solid rgba(245,166,35,0.25)',
+            transition: 'all 0.2s ease',
+            whiteSpace: 'nowrap'
+          }}
+          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(245,166,35,0.2)' }}
+          onMouseLeave={e => { e.currentTarget.style.background = 'rgba(245,166,35,0.1)' }}
+          >
+            Solicitudes de Crédito →
+          </Link>
         </div>
-        <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: '2px' }}>
-          MiBanco · Plataforma Interna
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.1rem' }}>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ fontWeight: 700, fontSize: '0.86rem' }}>{usuario?.nombre}</div>
+            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)' }}>{usuario?.cargo}</div>
+          </div>
+          <button
+            onClick={salir}
+            style={{
+              background: 'transparent',
+              color: '#f87171',
+              border: '1px solid rgba(248,113,113,0.35)',
+              padding: '0.5rem 1.1rem',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 700,
+              fontSize: '0.8rem',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#f87171'; e.currentTarget.style.color = '#0b0e0d' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#f87171' }}
+          >
+            Salir
+          </button>
         </div>
       </div>
-    </div>
 
-    {/* Separador */}
-    <div style={{ width: '1px', height: '28px', background: 'rgba(255,255,255,0.2)' }} />
-
-    {/* Contexto de sección */}
-    <div style={{
-      fontSize: '0.92rem',
-      fontWeight: 600,
-      color: '#ffd98a',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.4rem'
-    }}>
-      Solicitudes de Crédito
-    </div>
-
-    {/* Navegación */}
-    <Link to="/core-dashboard" style={{
-      color: 'rgba(255,255,255,0.75)',
-      fontSize: '0.82rem',
-      textDecoration: 'none',
-      padding: '0.4rem 0.85rem',
-      borderRadius: '20px',
-      border: '1px solid rgba(255,255,255,0.18)',
-      transition: 'all 0.2s ease',
-      whiteSpace: 'nowrap'
-    }}
-    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff' }}
-    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.75)' }}
-    >
-      ← Módulo de Mora
-    </Link>
-  </div>
-
-  <div style={{ display: 'flex', alignItems: 'center', gap: '1.1rem' }}>
-    <div style={{ textAlign: 'right' }}>
-      <div style={{ fontWeight: 700, fontSize: '0.88rem' }}>{usuario?.nombre}</div>
-      <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.55)' }}>{usuario?.cargo}</div>
-    </div>
-    <button
-      onClick={salir}
-      style={{
-        background: 'rgba(229,57,53,0.15)',
-        color: '#ff8a80',
-        border: '1px solid rgba(229,57,53,0.4)',
-        padding: '0.45rem 1.1rem',
-        borderRadius: '8px',
-        cursor: 'pointer',
-        fontWeight: 700,
-        fontSize: '0.82rem',
-        transition: 'all 0.2s ease'
-      }}
-      onMouseEnter={e => { e.currentTarget.style.background = '#e53935'; e.currentTarget.style.color = '#fff' }}
-      onMouseLeave={e => { e.currentTarget.style.background = 'rgba(229,57,53,0.15)'; e.currentTarget.style.color = '#ff8a80' }}
-    >
-      Salir
-    </button>
-  </div>
-</div>
-
-      <div style={{ padding: '2rem' }}>
-        {error && <div style={{ background: '#ffebee', color: '#e53935', padding: '1rem', borderRadius: '8px', marginBottom: '1rem' }}>⚠️ {error}</div>}
+      <div style={{ padding: '2.2rem' }}>
+        {error && (
+          <div style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.3)', color: '#f87171', padding: '1rem 1.2rem', borderRadius: '10px', marginBottom: '1.4rem', fontSize: '0.88rem' }}>
+            ⚠ {error}
+          </div>
+        )}
 
         {data && (
           <>
             {/* KPI General */}
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
-              <div style={{ background: '#fff', borderRadius: '12px', padding: '1.2rem 1.8rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-                <div style={{ fontSize: '0.78rem', color: '#888', fontWeight: 700 }}>TOTAL CRÉDITOS EN MORA</div>
-                <div style={{ fontSize: '1.8rem', fontWeight: 800 }}>{data.kpiGeneral.totalCreditosEnMora}</div>
+            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.8rem' }}>
+              <div style={{
+                background: 'linear-gradient(155deg, #14201b, #0f1714)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: '16px', padding: '1.4rem 1.8rem', flex: '0 0 220px'
+              }}>
+                <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.45)', fontWeight: 700, letterSpacing: '0.06em', marginBottom: '0.4rem' }}>
+                  CRÉDITOS EN MORA
+                </div>
+                <div style={{ fontSize: '2.2rem', fontWeight: 800, fontFamily: "'JetBrains Mono', monospace" }}>
+                  {data.kpiGeneral.totalCreditosEnMora}
+                </div>
               </div>
-              <div style={{ background: '#fff', borderRadius: '12px', padding: '1.2rem 1.8rem', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-                <div style={{ fontSize: '0.78rem', color: '#888', fontWeight: 700 }}>MONTO TOTAL EN MORA</div>
-                <div style={{ fontSize: '1.8rem', fontWeight: 800 }}>S/ {Number(data.kpiGeneral.montoTotalEnMora).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</div>
+              <div style={{
+                background: 'linear-gradient(155deg, #1f1812, #16110d)',
+                border: '1px solid rgba(245,166,35,0.2)',
+                borderRadius: '16px', padding: '1.4rem 1.8rem', flex: '0 0 320px'
+              }}>
+                <div style={{ fontSize: '0.72rem', color: 'rgba(245,166,35,0.7)', fontWeight: 700, letterSpacing: '0.06em', marginBottom: '0.4rem' }}>
+                  MONTO TOTAL EN MORA
+                </div>
+                <div style={{ fontSize: '2.2rem', fontWeight: 800, color: '#f5c863', fontFamily: "'JetBrains Mono', monospace" }}>
+                  S/ {Number(data.kpiGeneral.montoTotalEnMora).toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+                </div>
               </div>
             </div>
 
-            {/* Tabs por banda */}
-            <div style={{ display: 'flex', gap: '0.6rem', marginBottom: '1.2rem', flexWrap: 'wrap' }}>
+            {/* Tabs por banda - escalera de riesgo */}
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.4rem', flexWrap: 'wrap' }}>
               {BANDAS.map(b => {
                 const kpi = data.kpis.find(k => k.banda === b)
                 const activo = bandaActiva === b
+                const color = BANDA_COLOR[b]
                 return (
                   <button
                     key={b}
                     onClick={() => setBandaActiva(b)}
                     style={{
-                      padding: '0.6rem 1.1rem', borderRadius: '20px', border: 'none', cursor: 'pointer',
-                      fontWeight: 700, fontSize: '0.85rem',
-                      background: activo ? BANDA_COLOR[b] : '#fff',
-                      color: activo ? '#fff' : '#333',
-                      boxShadow: '0 2px 6px rgba(0,0,0,0.08)'
+                      padding: '0.7rem 1.2rem', borderRadius: '10px', cursor: 'pointer',
+                      fontWeight: 700, fontSize: '0.83rem',
+                      background: activo ? color : 'rgba(255,255,255,0.04)',
+                      color: activo ? '#0b0e0d' : 'rgba(255,255,255,0.75)',
+                      border: activo ? `1px solid ${color}` : '1px solid rgba(255,255,255,0.08)',
+                      boxShadow: activo ? `0 4px 18px ${BANDA_GLOW[b]}` : 'none',
+                      transition: 'all 0.15s ease',
+                      display: 'flex', alignItems: 'center', gap: '0.5rem'
                     }}
                   >
-                    {b} · {kpi?.cantidad || 0} · S/ {Number(kpi?.montoTotal || 0).toLocaleString('es-PE', { minimumFractionDigits: 0 })}
+                    <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: activo ? '#0b0e0d' : color, flexShrink: 0 }} />
+                    {b}
+                    <span style={{ opacity: 0.7, fontFamily: "'JetBrains Mono', monospace", fontSize: '0.78rem' }}>
+                      {kpi?.cantidad || 0}
+                    </span>
                   </button>
                 )
               })}
             </div>
 
             {/* Tabla de cartera filtrada */}
-            <div style={{ background: '#fff', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+            <div style={{ background: '#0f1512', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', overflow: 'hidden' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.86rem' }}>
                 <thead>
-                  <tr style={{ background: '#f0f2f1', textAlign: 'left' }}>
-                    <th style={{ padding: '0.8rem' }}>Cliente</th>
-                    <th style={{ padding: '0.8rem' }}>DNI</th>
-                    <th style={{ padding: '0.8rem', textAlign: 'right' }}>Días atraso</th>
-                    <th style={{ padding: '0.8rem', textAlign: 'right' }}>Saldo vencido</th>
-                    <th style={{ padding: '0.8rem' }}>Estado</th>
-                    <th style={{ padding: '0.8rem' }}></th>
+                  <tr style={{ background: 'rgba(255,255,255,0.03)', textAlign: 'left' }}>
+                    <th style={thStyle}>Cliente</th>
+                    <th style={thStyle}>DNI</th>
+                    <th style={{ ...thStyle, textAlign: 'right' }}>Días atraso</th>
+                    <th style={{ ...thStyle, textAlign: 'right' }}>Saldo vencido</th>
+                    <th style={thStyle}>Estado</th>
+                    <th style={thStyle}></th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.cartera.filter(c => c.banda === bandaActiva).map(c => (
-                    <tr key={c.pkcuentacredito} style={{ borderTop: '1px solid #eee' }}>
-                      <td style={{ padding: '0.7rem' }}>{c.nomcliente}</td>
-                      <td style={{ padding: '0.7rem' }}>{c.dni}</td>
-                      <td style={{ padding: '0.7rem', textAlign: 'right', fontWeight: 700, color: BANDA_COLOR[c.banda] }}>{c.diasatrasocredito}</td>
-                      <td style={{ padding: '0.7rem', textAlign: 'right' }}>S/ {Number(c.montosaldovencido).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
-                      <td style={{ padding: '0.7rem' }}>{c.desestadocredito}</td>
-                      <td style={{ padding: '0.7rem' }}>
+                    <tr key={c.pkcuentacredito} style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                      <td style={tdStyle}>{c.nomcliente}</td>
+                      <td style={{ ...tdStyle, color: 'rgba(255,255,255,0.5)', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.82rem' }}>{c.dni}</td>
+                      <td style={{ ...tdStyle, textAlign: 'right', fontWeight: 700, color: BANDA_COLOR[c.banda], fontFamily: "'JetBrains Mono', monospace" }}>{c.diasatrasocredito}</td>
+                      <td style={{ ...tdStyle, textAlign: 'right', fontFamily: "'JetBrains Mono', monospace" }}>S/ {Number(c.montosaldovencido).toLocaleString('es-PE', { minimumFractionDigits: 2 })}</td>
+                      <td style={tdStyle}>
+                        <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem' }}>{c.desestadocredito}</span>
+                      </td>
+                      <td style={tdStyle}>
                         <button
                           onClick={() => abrirGestion(c)}
-                          style={{ background: '#0d3b24', color: '#fff', border: 'none', padding: '0.4rem 0.9rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem' }}
+                          style={{ background: '#f5a623', color: '#0b0e0d', border: 'none', padding: '0.45rem 1rem', borderRadius: '7px', cursor: 'pointer', fontSize: '0.78rem', fontWeight: 700 }}
                         >
                           Gestionar
                         </button>
@@ -280,7 +317,7 @@ export default function CoreDashboard() {
                     </tr>
                   ))}
                   {data.cartera.filter(c => c.banda === bandaActiva).length === 0 && (
-                    <tr><td colSpan={6} style={{ padding: '2rem', textAlign: 'center', color: '#999' }}>No hay cuentas en esta banda.</td></tr>
+                    <tr><td colSpan={6} style={{ padding: '2.5rem', textAlign: 'center', color: 'rgba(255,255,255,0.35)' }}>No hay cuentas en esta banda.</td></tr>
                   )}
                 </tbody>
               </table>
@@ -292,55 +329,53 @@ export default function CoreDashboard() {
       {/* Modal de gestión */}
       {modalCuenta && (
         <div style={{
-          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)',
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(2px)',
           display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
         }}>
-          <div style={{ background: '#fff', borderRadius: '14px', padding: '1.8rem', width: '520px', maxHeight: '85vh', overflowY: 'auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+          <div style={{ background: '#111714', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '1.8rem', width: '520px', maxHeight: '85vh', overflowY: 'auto', color: '#fff' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.2rem' }}>
               <div>
-                <h3 style={{ margin: 0 }}>{modalCuenta.nomcliente}</h3>
-                <span style={{ fontSize: '0.82rem', color: '#888' }}>
-                  DNI: {modalCuenta.dni} · {modalCuenta.diasatrasocredito} días · Banda: <strong style={{ color: BANDA_COLOR[modalCuenta.banda] }}>{modalCuenta.banda}</strong>
+                <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{modalCuenta.nomcliente}</h3>
+                <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)' }}>
+                  DNI: {modalCuenta.dni} · {modalCuenta.diasatrasocredito} días · <strong style={{ color: BANDA_COLOR[modalCuenta.banda] }}>{modalCuenta.banda}</strong>
                 </span>
               </div>
-              <button onClick={() => setModalCuenta(null)} style={{ background: 'none', border: 'none', fontSize: '1.3rem', cursor: 'pointer' }}>✕</button>
+              <button onClick={() => setModalCuenta(null)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.5)', fontSize: '1.3rem', cursor: 'pointer' }}>✕</button>
             </div>
 
-            {/* Botones de transición R3 */}
-            <div style={{ display: 'flex', gap: '0.6rem', marginBottom: '1.2rem' }}>
+            <div style={{ display: 'flex', gap: '0.6rem', marginBottom: '1.3rem' }}>
               <button
                 onClick={() => transicionar('judicial')}
-                style={{ flex: 1, padding: '0.6rem', background: '#e53935', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, fontSize: '0.82rem' }}
+                style={{ flex: 1, padding: '0.65rem', background: 'rgba(248,113,113,0.12)', color: '#f87171', border: '1px solid rgba(248,113,113,0.3)', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, fontSize: '0.8rem' }}
               >
-                ⚖️ Derivar a Judicial
+                ⚖ Derivar a Judicial
               </button>
               <button
                 onClick={() => transicionar('castigo')}
-                style={{ flex: 1, padding: '0.6rem', background: '#6d4c41', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, fontSize: '0.82rem' }}
+                style={{ flex: 1, padding: '0.65rem', background: 'rgba(156,163,175,0.12)', color: '#d1d5db', border: '1px solid rgba(156,163,175,0.3)', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, fontSize: '0.8rem' }}
               >
-                🔥 Castigar cuenta
+                ☒ Castigar cuenta
               </button>
             </div>
 
             {msgGestion && (
               <div style={{
                 padding: '0.6rem 0.9rem', borderRadius: '8px', marginBottom: '1rem', fontSize: '0.85rem',
-                background: msgGestion.tipo === 'ok' ? '#e8f5e9' : '#ffebee',
-                color: msgGestion.tipo === 'ok' ? '#2e7d32' : '#e53935',
-                border: `1px solid ${msgGestion.tipo === 'ok' ? '#43a047' : '#e53935'}`
+                background: msgGestion.tipo === 'ok' ? 'rgba(74,222,128,0.1)' : 'rgba(248,113,113,0.1)',
+                color: msgGestion.tipo === 'ok' ? '#4ade80' : '#f87171',
+                border: `1px solid ${msgGestion.tipo === 'ok' ? 'rgba(74,222,128,0.3)' : 'rgba(248,113,113,0.3)'}`
               }}>
-                {msgGestion.tipo === 'ok' ? '✅' : '⚠️'} {msgGestion.texto}
+                {msgGestion.tipo === 'ok' ? '✓' : '⚠'} {msgGestion.texto}
               </div>
             )}
 
-            {/* Formulario de gestión R2 */}
-            <div style={{ marginBottom: '1.2rem' }}>
-              <h4 style={{ margin: '0 0 0.6rem' }}>Nueva gestión de cobranza</h4>
+            <div style={{ marginBottom: '1.3rem' }}>
+              <h4 style={{ margin: '0 0 0.7rem', fontSize: '0.88rem', color: 'rgba(255,255,255,0.7)' }}>Nueva gestión de cobranza</h4>
 
               <select
                 value={formGestion.pktipogestion}
                 onChange={e => setFormGestion(f => ({ ...f, pktipogestion: e.target.value }))}
-                style={{ width: '100%', padding: '0.5rem', marginBottom: '0.5rem', borderRadius: '6px', border: '1px solid #ddd' }}
+                style={inputStyle}
               >
                 <option value="">Tipo de gestión...</option>
                 <option value="1">Envío de SMS</option>
@@ -356,22 +391,22 @@ export default function CoreDashboard() {
                 placeholder="Resultado de la gestión"
                 value={formGestion.resultado}
                 onChange={e => setFormGestion(f => ({ ...f, resultado: e.target.value }))}
-                style={{ width: '100%', padding: '0.5rem', marginBottom: '0.5rem', borderRadius: '6px', border: '1px solid #ddd' }}
+                style={inputStyle}
               />
 
-              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.6rem' }}>
                 <input
                   type="date"
                   value={formGestion.compromisopago}
                   onChange={e => setFormGestion(f => ({ ...f, compromisopago: e.target.value }))}
-                  style={{ flex: 1, padding: '0.5rem', borderRadius: '6px', border: '1px solid #ddd' }}
+                  style={{ ...inputStyle, flex: 1, marginBottom: 0 }}
                 />
                 <input
                   type="number"
                   placeholder="Monto comprometido"
                   value={formGestion.montocomprometido}
                   onChange={e => setFormGestion(f => ({ ...f, montocomprometido: e.target.value }))}
-                  style={{ flex: 1, padding: '0.5rem', borderRadius: '6px', border: '1px solid #ddd' }}
+                  style={{ ...inputStyle, flex: 1, marginBottom: 0 }}
                 />
               </div>
 
@@ -379,28 +414,27 @@ export default function CoreDashboard() {
                 onClick={enviarGestion}
                 disabled={enviandoGestion || !formGestion.pktipogestion || !formGestion.resultado}
                 style={{
-                  width: '100%', padding: '0.65rem', background: '#f5a623', border: 'none', borderRadius: '8px',
-                  fontWeight: 700, cursor: 'pointer', opacity: enviandoGestion ? 0.7 : 1
+                  width: '100%', padding: '0.7rem', background: '#f5a623', color: '#0b0e0d', border: 'none', borderRadius: '8px',
+                  fontWeight: 700, cursor: 'pointer', opacity: enviandoGestion ? 0.6 : 1, fontSize: '0.88rem'
                 }}
               >
                 {enviandoGestion ? 'Guardando...' : 'Registrar gestión'}
               </button>
             </div>
 
-            {/* Historial */}
             <div>
-              <h4 style={{ margin: '0 0 0.6rem' }}>Historial de gestiones</h4>
+              <h4 style={{ margin: '0 0 0.7rem', fontSize: '0.88rem', color: 'rgba(255,255,255,0.7)' }}>Historial de gestiones</h4>
               {historial.length === 0 ? (
-                <p style={{ color: '#999', fontSize: '0.85rem' }}>Sin gestiones registradas.</p>
+                <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.85rem' }}>Sin gestiones registradas.</p>
               ) : (
                 historial.map(h => (
-                  <div key={h.pkgestion} style={{ padding: '0.6rem 0', borderTop: '1px solid #eee', fontSize: '0.82rem' }}>
+                  <div key={h.pkgestion} style={{ padding: '0.7rem 0', borderTop: '1px solid rgba(255,255,255,0.08)', fontSize: '0.82rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <strong>{h.destipogestion}</strong>
-                      <span style={{ color: '#888' }}>{new Date(h.fechagestion).toLocaleDateString('es-PE')}</span>
+                      <span style={{ color: 'rgba(255,255,255,0.4)' }}>{new Date(h.fechagestion).toLocaleDateString('es-PE')}</span>
                     </div>
-                    <div>{h.resultado} · Gestor: {h.gestor}</div>
-                    {h.compromisopago && <div style={{ color: '#43a047' }}>Compromiso: {new Date(h.compromisopago).toLocaleDateString('es-PE')} · S/ {h.montocomprometido}</div>}
+                    <div style={{ color: 'rgba(255,255,255,0.6)' }}>{h.resultado} · Gestor: {h.gestor}</div>
+                    {h.compromisopago && <div style={{ color: '#4ade80' }}>Compromiso: {new Date(h.compromisopago).toLocaleDateString('es-PE')} · S/ {h.montocomprometido}</div>}
                   </div>
                 ))
               )}
@@ -411,3 +445,7 @@ export default function CoreDashboard() {
     </div>
   )
 }
+
+const thStyle = { padding: '0.85rem 1rem', color: 'rgba(255,255,255,0.45)', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.05em', textTransform: 'uppercase' }
+const tdStyle = { padding: '0.85rem 1rem' }
+const inputStyle = { width: '100%', padding: '0.6rem 0.7rem', marginBottom: '0.6rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.04)', color: '#fff', fontSize: '0.85rem' }
