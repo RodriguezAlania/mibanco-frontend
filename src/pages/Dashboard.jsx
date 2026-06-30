@@ -365,7 +365,6 @@ function Dashboard() {
                 <select
                   value={formCredito.moneda}
                   onChange={e => setFormCredito(f => ({ ...f, moneda: e.target.value }))}
-                  style={{ width: '100%', background: 'transparent', border: 'none', outline: 'none', color: 'inherit' }}
                 >
                   <option value="PEN">Soles (PEN)</option>
                   <option value="USD">Dólares (USD)</option>

@@ -122,17 +122,23 @@
       position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
       color: var(--gray-400); font-size: 1rem; pointer-events: none;
     }
-    .input-wrap input {
+    .input-wrap input, .input-wrap select {
       width: 100%; padding: .85rem 1rem .85rem 2.8rem;
       border: 2px solid var(--gray-200); border-radius: var(--radius-sm);
       font-size: .95rem; color: var(--gray-800);
       transition: border-color .2s, box-shadow .2s;
       background: var(--gray-50);
     }
-    .input-wrap input:focus {
+    .input-wrap select {
+      appearance: none; -webkit-appearance: none; -moz-appearance: none;
+      padding-right: 2.5rem; cursor: pointer;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23999'><path d='M5.5 7.5l4.5 4.5 4.5-4.5z'/></svg>");
+      background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem;
+    }
+    .input-wrap input:focus, .input-wrap select:focus {
       outline: none; border-color: var(--green);
       box-shadow: 0 0 0 3px rgba(0,102,51,.12);
-      background: var(--white);
+      background-color: var(--white);
     }
     .input-wrap .toggle-pw {
       position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
