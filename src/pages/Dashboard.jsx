@@ -34,13 +34,25 @@ function Dashboard() {
   const sesion = obtenerSesion()
   const usuario = sesion?.usuario
 
-  // Iniciales del avatar
-  const iniciales = usuario
-    ? `${usuario.first_name?.[0] || ''}${usuario.last_name?.[0] || ''}`.toUpperCase() || usuario.username?.[0]?.toUpperCase()
-    : 'U'
+  // Iniciales del avatar: a partir de "Apellido, Nombre" -> primera letra de cada parte
+  const iniciales = (() => {
+    const completo = usuario?.first_name || usuario?.nombre || usuario?.username
+    if (!completo) return 'U'
+    const partes = completo.split(',').map(p => p.trim()).filter(Boolean)
+    if (partes.length > 1) {
+      return `${partes[1][0] || ''}${partes[0][0] || ''}`.toUpperCase()
+    }
+    return completo[0]?.toUpperCase() || 'U'
+  })()
 
-  // Nombre para el saludo
-  const nombre = usuario?.first_name || usuario?.username || 'Usuario'
+  // Nombre para el saludo: nomcliente viene como "Apellido, Nombre" -> tomamos el nombre de pila
+  const nombre = (() => {
+    const completo = usuario?.first_name || usuario?.nombre || usuario?.username
+    if (!completo) return 'Usuario'
+    const partes = completo.split(',')
+    const soloNombre = partes.length > 1 ? partes[1].trim() : completo.trim()
+    return soloNombre.split(' ')[0]
+  })()
 
   useEffect(() => {
     // Cargar cuentas del usuario
